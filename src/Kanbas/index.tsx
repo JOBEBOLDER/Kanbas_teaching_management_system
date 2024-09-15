@@ -10,6 +10,7 @@ import Courses from "./Courses";
 export default function Kanbas() {
     return (
       <div id="wd-kanbas">
+        <h1>Kanbas</h1>
         <table>
           <tbody> {/* 使用 <tbody> 包裹 <tr> */}
             <tr>
