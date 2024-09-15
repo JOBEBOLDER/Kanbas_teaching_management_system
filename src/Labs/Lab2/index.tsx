@@ -1,4 +1,4 @@
-// src/Labs/Lab2/index.tsx
+
 export default function Lab2() {
     return (
       <div>

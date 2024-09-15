@@ -8,6 +8,7 @@ import { Route, Routes, Navigate } from "react-router";
 export default function Labs() {
   return (
     <div>
+        <h1>jieyao chen A1 Homework</h1>
       <h1>Labs</h1>
       <TOC />
       <Routes>

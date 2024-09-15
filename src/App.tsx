@@ -1,4 +1,6 @@
 import React from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import logo from './logo.svg';
 import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import Labs from "./Labs";
 import Kanbas from "./Kanbas";
