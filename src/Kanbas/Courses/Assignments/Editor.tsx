@@ -1,138 +1,115 @@
-// src/Kanbas/Courses/Assignments/Editor.tsx
 export default function AssignmentEditor() {
-    return (
-      <div id="wd-assignments-editor">
-        {/* Assignment Name */}
-        <h2>Assignment Name</h2>
-        <input id="wd-name" value="A1 - ENV + HTML" style={{ width: '100%' }} /><br /><br />
-  
-        {/* Assignment Description */}
-        <textarea id="wd-description" style={{ width: '100%', height: '100px' }}>
-          The assignment is available online. Submit a link to the landing page of your Web application running on Netlify. The landing page should include the following: 
-          - Your full name and section
-          - Links to each of the lab assignments
-          - Link to the Kanbas application
-          - Links to all relevant source code repositories
-          The Kanbas application should include a link to navigate back to the landing page.
-        </textarea>
-        <br /><br />
-  
-        <table style={{ width: '100%' }}>
-          <tbody>
-            {/* Points */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-points">Points</label>
-              </td>
-              <td>
-                <input id="wd-points" value={100} style={{ width: '100%' ,marginBottom: '10px'}} />
-              </td>
-            </tr>
-  
-            {/* Assignment Group */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-group">Assignment Group</label>
-              </td>
-              <td>
-                <select id="wd-group" style={{ width: '100%',marginBottom: '10px' }}>
-                  <option value="assignments">Assignments</option>
-                  <option value="quizzes">Quizzes</option>
-                  <option value="exams">Exams</option>
-                  <option value="projects">Projects</option>
-                </select>
-              </td>
-            </tr>
-  
-            {/* Display Grade As */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-display-grade-as">Display Grade As</label>
-              </td>
-              <td>
-                <select id="wd-display-grade-as" style={{ width: '100%' ,marginBottom: '10px'}}>
-                  <option value="points">Points</option>
-                  <option value="percentage">Percentage</option>
-                </select>
-              </td>
-            </tr>
-  
-            {/* Submission Type */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-submission-type">Submission Type</label>
-              </td>
-              <td>
-                <select id="wd-submission-type" style={{ width: '100%' ,marginBottom: '10px'}}>
-                  <option value="online">Online</option>
-                  <option value="on-paper">On Paper</option>
-                </select>
-              </td>
-            </tr>
-  
-            {/* Online Entry Options */}
-            <tr>
-              <td align="right" valign="top">
-                <label>Online Entry Options</label>
-              </td>
-              <td>
-                <div style={{ display: 'flex', flexDirection: 'column' ,marginBottom: '10px'}}>
-                  <label><input type="checkbox" /> Text Entry</label>
-                  <label><input type="checkbox" checked /> Website URL</label>
-                  <label><input type="checkbox" /> Media Recordings</label>
-                  <label><input type="checkbox" /> Student Annotation</label>
-                  <label><input type="checkbox" /> File Uploads</label>
-                </div>
-              </td>
-            </tr>
-  
-            {/* Assign To */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-assign-to">Assign To</label>
-              </td>
-              <td>
-                <input id="wd-assign-to" value="Everyone" style={{ width: '100%' ,marginBottom: '10px'}} />
-              </td>
-            </tr>
-  
-            {/* Due Date */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-due-date">Due Date</label>
-              </td>
-              <td>
-                <input id="wd-due-date" type="date" value="2024-05-13" style={{ width: '100%' ,marginBottom: '10px'}} />
-              </td>
-            </tr>
-  
-            {/* Available From */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-available-from">Available From</label>
-              </td>
-              <td>
-                <input id="wd-available-from" type="date" value="2024-05-06" style={{ width: '100%',marginBottom: '10px' }} />
-              </td>
-            </tr>
-  
-            {/* Available Until */}
-            <tr>
-              <td align="right" valign="top">
-                <label htmlFor="wd-available-until">Available Until</label>
-              </td>
-              <td>
-                <input id="wd-available-until" type="date" value="2024-05-20" style={{ width: '100%',marginBottom: '10px' }} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-  
-        {/* Buttons */}
-        <div style={{ marginTop: '20px' }}>
-          <button>Cancel</button>
-          <button>Save</button>
+  return (
+    <div id="wd-assignments-editor" className="container mt-4">
+      {/* Assignment Name */}
+      <h2>Assignment Name</h2>
+      <input id="wd-name" value="A1 - ENV + HTML" className="form-control mb-3" />
+
+      {/* Assignment Description */}
+      <textarea
+        id="wd-description"
+        className="form-control mb-4"
+        style={{ height: "100px" }}
+      >
+        The assignment is available online. Submit a link to the landing page of your Web application running on Netlify. The landing page should include the following:
+        - Your full name and section
+        - Links to each of the lab assignments
+        - Link to the Kanbas application
+        - Links to all relevant source code repositories
+        The Kanbas application should include a link to navigate back to the landing page.
+      </textarea>
+
+      <div className="row">
+        {/* Points */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-points" className="form-label">Points</label>
+          <input id="wd-points" value={100} className="form-control" />
+        </div>
+
+        {/* Assignment Group */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-group" className="form-label">Assignment Group</label>
+          <select id="wd-group" className="form-control">
+            <option value="assignments">Assignments</option>
+            <option value="quizzes">Quizzes</option>
+            <option value="exams">Exams</option>
+            <option value="projects">Projects</option>
+          </select>
+        </div>
+
+        {/* Display Grade As */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-display-grade-as" className="form-label">Display Grade As</label>
+          <select id="wd-display-grade-as" className="form-control">
+            <option value="points">Points</option>
+            <option value="percentage">Percentage</option>
+          </select>
+        </div>
+
+        {/* Submission Type */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-submission-type" className="form-label">Submission Type</label>
+          <select id="wd-submission-type" className="form-control">
+            <option value="online">Online</option>
+            <option value="on-paper">On Paper</option>
+          </select>
+        </div>
+
+        {/* Online Entry Options */}
+        <div className="col-12 mb-3">
+          <label className="form-label">Online Entry Options</label>
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input" />
+            <label className="form-check-label">Text Entry</label>
+          </div>
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input" checked />
+            <label className="form-check-label">Website URL</label>
+          </div>
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input" />
+            <label className="form-check-label">Media Recordings</label>
+          </div>
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input" />
+            <label className="form-check-label">Student Annotation</label>
+          </div>
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input" />
+            <label className="form-check-label">File Uploads</label>
+          </div>
+        </div>
+
+        {/* Assign To */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-assign-to" className="form-label">Assign To</label>
+          <input id="wd-assign-to" value="Everyone" className="form-control" />
+        </div>
+
+        {/* Due Date */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-due-date" className="form-label">Due Date</label>
+          <input id="wd-due-date" type="date" value="2024-05-13" className="form-control" />
+        </div>
+
+        {/* Available From */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-available-from" className="form-label">Available From</label>
+          <input id="wd-available-from" type="date" value="2024-05-06" className="form-control" />
+        </div>
+
+        {/* Available Until */}
+        <div className="col-md-6 mb-3">
+          <label htmlFor="wd-available-until" className="form-label">Available Until</label>
+          <input id="wd-available-until" type="date" value="2024-05-20" className="form-control" />
         </div>
       </div>
-    );
-  }
+
+      {/* Buttons */}
+      <div className="d-flex justify-content-end mt-4">
+        <button className="btn btn-secondary me-2">Cancel</button>
+        <button className="btn btn-success">Save</button>
+      </div>
+    </div>
+  );
+}

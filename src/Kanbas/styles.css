@@ -1,0 +1,204 @@
+/* 保留原有的全局样式 */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body * {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 保留 Dashboard 相关样式 */
+#wd-dashboard .row-cols-md-4 .col {
+  margin-bottom: 40px;
+}
+
+#wd-dashboard .card {
+  margin-bottom: 20px;
+}
+
+/* 保留响应式布局样式 */
+@media (min-width: 768px) {
+  #wd-kanbas .wd-main-content-offset {
+    padding-left: 140px !important;
+  }
+}
+
+/* 新增 Course Navigation 侧边栏样式 */
+.wd-courses-navigation .list-group-item {
+  color: #d41b2c;
+  background-color: white;
+  border: none;
+  padding: 10px 15px;
+}
+
+.wd-courses-navigation .list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.wd-courses-navigation .list-group-item.active {
+  color: black;
+  background-color: white;
+  border-left: 3px solid black !important;
+}
+
+.wd-courses-navigation .list-group-item i {
+  width: 20px;
+  text-align: center;
+}
+
+/* 覆盖 Bootstrap 样式，确保侧边栏样式正确 */
+.list-group.wd > .list-group-item.active {
+  color: black;
+  background-color: white;
+  border-left: 3px solid black !important;
+}
+
+/* Modules 页面样式 */
+#wd-modules .card {
+  margin-bottom: 30px; /* 设置模块之间的间距 */
+  border-radius: 6px; /* 模块卡片的圆角 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加卡片阴影 */
+}
+
+/* 模块和课程的标题布局 */
+.wd-module .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.wd-lesson .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  font-size: 1.1rem;
+}
+
+/* 控制按钮在模块和课程右侧的浮动样式 */
+.float-end {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wd-module .card-header .float-end {
+  margin-left: auto;
+}
+
+.wd-lesson .list-group-item .float-end {
+  margin-left: auto;
+}
+
+/* 拖动图标的样式 */
+.wd-module .card-header .me-2,
+.wd-lesson .me-2 {
+  cursor: grab;
+  color: #6c757d;
+  font-size: 1.5rem;
+}
+
+/* 列表内容的样式 */
+.wd-content-item {
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+
+/* 控制按钮的额外样式 */
+.lesson-control-buttons,
+.module-control-buttons {
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.lesson-control-buttons:hover,
+.module-control-buttons:hover {
+  color: #495057;
+}
+
+/* CourseStatus 样式 */
+#wd-course-status button {
+  margin-bottom: 10px; /* 每个按钮之间的间距 */
+}
+
+#wd-course-status h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+#wd-course-status .btn {
+  font-size: 1rem; /* 按钮文本大小 */
+  padding: 10px 15px; /* 按钮的内边距 */
+  border-radius: 6px; /* 圆角按钮 */
+}
+
+/* 保持按钮图标与文本的间距 */
+#wd-course-status .btn .me-2 {
+  margin-right: 8px;
+}
+
+/* 响应式处理：确保在窄屏幕上布局良好 */
+@media (max-width: 768px) {
+  .wd-module .card-header,
+  .wd-lesson .list-group-item {
+    font-size: 1rem;
+  }
+  
+  .wd-module .card-header .float-end,
+  .wd-lesson .list-group-item .float-end {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  #wd-course-status {
+    width: 100%;
+  }
+
+  #wd-course-status .btn {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+  #wd-people-table {
+    margin-top: 20px;
+  }
+  
+  #wd-people-table .table {
+    width: 100%;
+    border: 1px solid #dee2e6;
+  }
+  
+  #wd-people-table .table th, #wd-people-table .table td {
+    padding: 10px;
+    vertical-align: middle;
+  }
+  
+  .wd-full-name {
+    display: flex;
+    align-items: center;
+  }
+  
+  .wd-full-name .wd-first-name, .wd-full-name .wd-last-name {
+    font-weight: bold;
+  }
+  #wd-assignments-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  #wd-assignment-list .wd-assignment-list-item {
+    margin-bottom: 10px;
+  }
+  
+  #wd-assignment-list .wd-assignment-link {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  #wd-assignment-list .wd-assignment-link:hover {
+    text-decoration: underline;
+  }
+}

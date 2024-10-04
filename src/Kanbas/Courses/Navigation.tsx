@@ -1,16 +1,34 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FaHome, FaBook, FaComments, FaVideo, FaTasks, FaCheckCircle, FaUsers } from "react-icons/fa"; // 引入相应的图标
 
 export default function CoursesNavigation() {
+  const links = [
+    { label: "Home", icon: FaHome, path: "Home" },
+    { label: "Modules", icon: FaBook, path: "Modules" },
+    { label: "Piazza", icon: FaComments, path: "Piazza" },
+    { label: "Zoom Meetings", icon: FaVideo, path: "Zoom" },
+    { label: "Assignments", icon: FaTasks, path: "Assignments" },
+    { label: "Quizzes", icon: FaCheckCircle, path: "Quizzes" },
+    { label: "People", icon: FaUsers, path: "People" },
+  ];
+
+  const { pathname } = useLocation();
+
   return (
-    <div id="wd-courses-navigation">
-      <Link id="wd-course-home-link" to="/Kanbas/Courses/1234/Home">Home</Link><br />
-      <Link id="wd-course-modules-link" to="/Kanbas/Courses/1234/Modules">Modules</Link><br />
-      <Link id="wd-course-piazza-link" to="/Kanbas/Courses/1234/Piazza">Piazza</Link><br />
-      <Link id="wd-course-zoom-link" to="/Kanbas/Courses/1234/Zoom">Zoom</Link><br />
-      <Link id="wd-course-quizzes-link" to="/Kanbas/Courses/1234/Assignments">Assignments</Link><br />
-      <Link id="wd-course-assignments-link" to="/Kanbas/Courses/1234/Quizzes">Quizzes</Link><br />
-      <Link id="wd-course-grades-link" to="/Kanbas/Courses/1234/Grades">Grades</Link><br />
-      <Link id="wd-course-people-link" to="/Kanbas/Courses/1234/People">People</Link><br />
+    <div className="list-group wd-courses-navigation">
+      {links.map((link) => (
+        <Link
+          key={link.path}
+          to={`/Kanbas/Courses/1234/${link.path}`}
+          className={`list-group-item ${
+            pathname.includes(link.path) ? "active" : ""
+          }`}
+        >
+          <link.icon className="me-2" /> {/* 使用 `react-icons` 图标组件 */}
+          {link.label}
+        </Link>
+      ))}
     </div>
   );
 }

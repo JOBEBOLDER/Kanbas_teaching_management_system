@@ -1,5 +1,3 @@
-import Lab2 from "../Lab2";
-
 export default function Lab1() {
   return (
     //2.6Heading Tags

@@ -1,7 +1,7 @@
 // src/Labs/index.tsx
-import Lab1 from "./Lab1";
-import Lab2 from "./Lab2";
-import Lab3 from "./Lab3";
+import Lab1 from "./Lab1/index";
+import Lab2 from "./Lab2/index";
+import Lab3 from "./Lab3/index";
 import TOC from "./TOC";
 import { Route, Routes, Navigate } from "react-router";
 
