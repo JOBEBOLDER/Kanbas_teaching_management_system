@@ -1,0 +1,48 @@
+/* src/Kanbas/Courses/Modules/index.css */
+#wd-modules .list-group-item {
+    border: 1px solid #ddd;
+  }
+  
+  .wd-module .wd-title {
+    background-color: #f8f9fa;
+    cursor: move;
+  }
+  
+  .wd-lessons .list-group-item {
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .wd-lessons .list-group-item:last-child {
+    border-bottom: none;
+  }
+  
+  .wd-module {
+    margin-bottom: 20px;
+  }
+  
+  .wd-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .float-end {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .btn-light {
+    background-color: transparent;
+    border: 1px solid #ddd;
+  }
+  
+  .btn-light:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .wd-grip-vertical {
+    cursor: move;
+    color: #666;
+  }

@@ -10,7 +10,7 @@ body * {
 
 /* 保留 Dashboard 相关样式 */
 #wd-dashboard .row-cols-md-4 .col {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 #wd-dashboard .card {
@@ -137,7 +137,7 @@ body * {
 
 /* 保持按钮图标与文本的间距 */
 #wd-course-status .btn .me-2 {
-  margin-right: 8px;
+  margin-right: 5px;
 }
 
 /* 响应式处理：确保在窄屏幕上布局良好 */
@@ -201,4 +201,26 @@ body * {
   #wd-assignment-list .wd-assignment-link:hover {
     text-decoration: underline;
   }
+  /* 添加这些样式到你的CSS文件 */
+#wd-kanbas-navigation {
+  background-color: black !important;
+}
+
+#wd-kanbas-navigation .list-group-item {
+  padding: 15px 0;
+  border: none !important;
+}
+
+#wd-kanbas-navigation .list-group-item.active,
+#wd-kanbas-navigation .list-group-item:hover {
+  background-color: white !important;
+}
+
+#wd-kanbas-navigation .list-group-item:not(.active) .fs-1 {
+  color: #dc3545 !important;
+}
+
+#wd-kanbas-navigation .text-danger {
+  color: #dc3545 !important;
+}
 }

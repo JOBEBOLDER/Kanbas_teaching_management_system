@@ -1,0 +1,18 @@
+/* src/Kanbas/Courses/index.css */
+.wd-courses {
+    background-color: white;
+  }
+  
+  .wd-courses h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+  
+  .wd-courses .row {
+    margin: 0;
+  }
+  
+  .wd-courses .col-md-2,
+  .wd-courses .col-md-10 {
+    padding: 0;
+  }

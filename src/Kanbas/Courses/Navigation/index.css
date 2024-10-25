@@ -1,0 +1,24 @@
+/* src/Kanbas/Courses/Navigation/index.css */
+.wd-course-navigation {
+    width: 200px;
+    background-color: white;
+    border-right: 1px solid #dee2e6;
+  }
+  
+  .wd-course-navigation .list-group-item {
+    transition: all 0.3s ease;
+    border-radius: 0;
+    cursor: pointer;
+  }
+  
+  .wd-course-navigation .list-group-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .wd-course-navigation .list-group-item.active {
+    border-left: 4px solid #dc3545;
+  }
+  
+  .wd-course-navigation .list-group-item:not(.active) {
+    border-left: 4px solid transparent;
+  }

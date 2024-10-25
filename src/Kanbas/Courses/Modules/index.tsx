@@ -1,86 +1,76 @@
-import React from 'react';
-import LessonControlButtons from './LessonControlButttons';
-import ModuleControlButtons from './ModuleControlButtons';
-import { BsGripVertical } from 'react-icons/bs';  // 用于添加拖动效果的图标
+// src/Kanbas/Courses/Modules/index.tsx
+import { useParams } from "react-router";
+import { modules } from "../../Database";
+import { BsGripVertical } from "react-icons/bs";
+import "./index.css";
+
+// 控制按钮组件
+const ModuleControlButtons = () => (
+  <div className="float-end">
+    <button className="btn btn-light me-1">
+      <i className="fa fa-check-circle text-success"></i>
+    </button>
+    <button className="btn btn-light me-1">
+      <i className="fa fa-plus"></i>
+    </button>
+    <button className="btn btn-light">
+      <i className="fa fa-ellipsis-v"></i>
+    </button>
+  </div>
+);
+
+const LessonControlButtons = () => (
+  <div className="float-end">
+    <button className="btn btn-light">
+      <i className="fa fa-ellipsis-v"></i>
+    </button>
+  </div>
+);
 
 export default function Modules() {
+  const { cid } = useParams();
+  const modulesList = modules.filter((module) => module.course === cid);
+
   return (
-    <div className="container-fluid p-4">
-      <div className="d-flex justify-content-between mb-3">
-        {/* Collapse All and View Progress Buttons */}
-        <button className="btn btn-light">Collapse All</button>
-        <button className="btn btn-primary">View Progress</button>
+    <div>
+      <h2>Modules</h2>
+      <div className="d-flex justify-content-end mb-3">
+        <button className="btn btn-light me-2">Collapse All</button>
+        <button className="btn btn-light me-2">View Progress</button>
+        <button className="btn btn-light me-2">
+          <i className="fa fa-check-circle"></i> Publish All
+        </button>
+        <button className="btn btn-danger">+ Module</button>
       </div>
 
-      {/* Module List */}
-      <ul id="wd-modules" className="list-unstyled">
-        <li className="wd-module mb-4">
-          <div className="card">
-            <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-              <div>
-                <BsGripVertical className="me-2" /> {/* 可选的拖动图标 */}
-                Week 1
-              </div>
-              <ModuleControlButtons /> {/* 模块控制按钮 */}
+      <ul id="wd-modules" className="list-group rounded-0">
+        {modulesList.map((module) => (
+          <li 
+            key={module._id} 
+            className="wd-module list-group-item p-0 mb-5 fs-5 border-gray"
+          >
+            <div className="wd-title p-3 ps-2 bg-light">
+              <BsGripVertical className="me-2 fs-3" /> 
+              {module.name}
+              <ModuleControlButtons />
             </div>
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                <strong>LEARNING OBJECTIVES</strong>
-                <LessonControlButtons /> {/* 课程控制按钮 */}
-                <ul className="wd-content list-unstyled ms-3">
-                  <li className="wd-content-item">Introduction to the course</li>
-                  <li className="wd-content-item">Learn what is Web Development</li>
-                </ul>
-              </li>
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                <strong>Lecture 1</strong>
-                <LessonControlButtons /> {/* 课程控制按钮 */}
-                <ul className="wd-content list-unstyled ms-3">
-                  <li className="wd-content-item">
-                    <a href="#reading-material">READING</a>
+            
+            {module.lessons && (
+              <ul className="wd-lessons list-group rounded-0">
+                {module.lessons.map((lesson) => (
+                  <li 
+                    key={lesson._id}
+                    className="wd-lesson list-group-item p-3 ps-1"
+                  >
+                    <BsGripVertical className="me-2 fs-3" /> 
+                    {lesson.name}
+                    <LessonControlButtons />
                   </li>
-                  <li className="wd-content-item">
-                    <a href="#slides">SLIDES</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-        <li className="wd-module mb-4">
-          <div className="card">
-            <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-              <div>
-                <BsGripVertical className="me-2" /> {/* 可选的拖动图标 */}
-                Week 2
-              </div>
-              <ModuleControlButtons /> {/* 模块控制按钮 */}
-            </div>
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                <strong>LEARNING OBJECTIVES</strong>
-                <LessonControlButtons /> {/* 课程控制按钮 */}
-                <ul className="wd-content list-unstyled ms-3">
-                  <li className="wd-content-item">Understanding HTML</li>
-                  <li className="wd-content-item">Basic CSS Concepts</li>
-                </ul>
-              </li>
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                <strong>Lecture 2</strong>
-                <LessonControlButtons /> {/* 课程控制按钮 */}
-                <ul className="wd-content list-unstyled ms-3">
-                  <li className="wd-content-item">
-                    <a href="#reading-material">READING</a>
-                  </li>
-                  <li className="wd-content-item">
-                    <a href="#slides">SLIDES</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   );

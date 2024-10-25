@@ -1,78 +1,108 @@
-import { FaPlus, FaSearch } from "react-icons/fa"; // 使用 react-icons
+// src/Kanbas/Courses/Assignments/index.tsx
+import { useParams, Link } from "react-router-dom";
+import { assignments } from "../../Database";
+import {
+  FaEllipsisV,
+  FaCheckCircle,
+  FaGripVertical,
+  FaEdit,
+} from "react-icons/fa";
+import "./index.css";
+
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+}
 
 export default function Assignments() {
+  const { cid } = useParams();
+  const courseAssignments = assignments.filter(
+    (assignment: Assignment) => assignment.course === cid
+  );
+
   return (
-    <div id="wd-assignments" className="container-fluid p-4">
-      {/* 顶部的搜索框和按钮 */}
-      <div className="d-flex justify-content-between mb-3">
-        <div className="input-group w-50">
-          <span className="input-group-text">
-            <FaSearch />
-          </span>
-          <input
-            id="wd-search-assignment"
-            className="form-control"
-            placeholder="Search for Assignments"
-          />
-        </div>
-        <div>
-          <button id="wd-add-assignment-group" className="btn btn-success me-2">
-            <FaPlus className="me-1" /> Group
-          </button>
-          <button id="wd-add-assignment" className="btn btn-primary">
-            <FaPlus className="me-1" /> Assignment
+    <div className="wd-assignments">
+      {/* 顶部搜索和按钮 */}
+      <div className="assignment-header d-flex justify-content-between align-items-center mb-3">
+        <div className="d-flex flex-grow-1 me-3">
+          <div className="search-box position-relative flex-grow-1 me-2">
+            <input
+              type="text"
+              className="form-control ps-4"
+              placeholder="Search for Assignment"
+            />
+            <i className="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
+          </div>
+          <button className="btn btn-light border">
+            <i className="fas fa-plus me-1"></i>Group
           </button>
         </div>
+        <button className="btn btn-danger">
+          <i className="fas fa-plus me-1"></i>Assignment
+        </button>
       </div>
 
-      {/* ASSIGNMENTS 大标题 */}
-      <h3 id="wd-assignments-title" className="d-flex justify-content-between align-items-center">
-        ASSIGNMENTS 40% of Total
-        <button className="btn btn-secondary btn-sm">
-          <FaPlus /> Add Assignment
-        </button>
-      </h3>
+      {/* 作业列表 */}
+      <div className="list-group shadow-sm">
+        {/* 作业标题栏 */}
+        <div className="list-group-item assignments-header">
+          <div className="d-flex justify-content-between align-items-center py-1">
+            <div className="d-flex align-items-center">
+              <FaGripVertical className="me-2 text-secondary" />
+  
+              <span className="fw-bold">ASSIGNMENTS</span>
+            </div>
+            <div>
+              <span className="badge rounded-pill bg-light text-dark border me-2">
+                40% of Total
+              </span>
+              <button className="btn btn-transparent p-0 me-2">
+                <i className="fas fa-plus text-secondary"></i>
+              </button>
+              <button className="btn btn-transparent p-0">
+                <FaEllipsisV className="text-secondary" />
+              </button>
+            </div>
+          </div>
+        </div>
 
-      {/* 任务列表 */}
-      <ul id="wd-assignment-list" className="list-group">
-        <li className="wd-assignment-list-item list-group-item">
-          <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/123">
-            A1 - ENV + HTML
-          </a>
-          <br />
-          <span className="text-muted">
-            Multiple Modules | Not available until May 6 at 12:00am |
-          </span>
-          <br />
-          <strong>Due</strong> May 13 at 11:59pm | 100 pts
-        </li>
-
-        <li className="wd-assignment-list-item list-group-item">
-          <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/124">
-            A2 - CSS + BOOTSTRAP
-          </a>
-          <br />
-          <span className="text-muted">
-            Multiple Modules | Not available until May 13 at 12:00am |
-          </span>
-          <br />
-          <strong>Due</strong> May 20 at 11:59pm | 100 pts
-        </li>
-
-        <li className="wd-assignment-list-item list-group-item">
-          <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/125">
-            A3 - JAVASCRIPT + REACT
-          </a>
-          <br />
-          <span className="text-muted">
-            Multiple Modules | Not available until May 20 at 12:00am |
-          </span>
-          <br />
-          <strong>Due</strong> May 27 at 11:59pm | 100 pts
-        </li>
-
-        {/* 继续添加更多任务 */}
-      </ul>
+        {/* 作业列表项 */}
+        {courseAssignments.map((assignment, index) => (
+          <div key={assignment._id} className="list-group-item assignment-item">
+            <div className="d-flex align-items-center mb-2">
+              <div className="drag-handle me-2">
+                <FaGripVertical className="text-secondary" />
+               
+              </div>
+              <div className="assignment-icon me-3">
+                <FaEdit className="text-success" />
+              </div>
+              <div className="flex-grow-1">
+                <Link
+                  to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                  className="assignment-title text-danger fw-bold text-decoration-none"
+                >
+                  {`A${index + 1}`}
+                </Link>
+                <div className="assignment-details text-secondary small">
+                  <span>Multiple Modules</span>
+                  <span className="mx-2">|</span>
+                  <span>Not available until May 6 at 12:00am</span>
+                  <span className="mx-2">|</span>
+                  <span>Due May 13 at 11:59pm</span>
+                  <span className="mx-2">|</span>
+                  <span>100 pts</span>
+                </div>
+              </div>
+              <div className="assignment-status">
+                <FaCheckCircle className="text-success me-2" />
+                <FaEllipsisV className="text-secondary" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

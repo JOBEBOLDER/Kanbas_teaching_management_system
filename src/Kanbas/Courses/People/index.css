@@ -1,0 +1,60 @@
+/* src/Kanbas/Courses/People/index.css */
+.table {
+    margin-bottom: 0;
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    font-weight: 600;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .badge {
+    font-weight: 500;
+    padding: 0.5em 0.75em;
+  }
+  
+  .btn-light {
+    background-color: #fff;
+    border-color: #dee2e6;
+  }
+  
+  .btn-light:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+  }
+  
+  .form-control:focus {
+    border-color: #dc3545;
+    box-shadow: none;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  
+  .text-muted {
+    color: #6c757d !important;
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .table-responsive {
+      margin: 0 -15px;
+    }
+    
+    .d-flex {
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      margin-top: 10px;
+    }
+  }

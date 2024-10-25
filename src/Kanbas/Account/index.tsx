@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router";
-import Signin from "./Signin";
+import Signin from "./Signin/Signin";
 import Profile from "./Profile";
 import Signup from "./Signup";
-import AccountNavigation from "./Navigation";
+import AccountNavigation from "./Navigation/Navigation";
 
 
 export default function Account() {

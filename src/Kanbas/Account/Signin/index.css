@@ -1,0 +1,56 @@
+/* src/Kanbas/Account/Signin/index.css */
+.wd-content {
+    padding: 20px;
+  }
+  
+  .wd-account-nav {
+    margin-bottom: 20px;
+  }
+  
+  .wd-account-nav a {
+    color: #0d6efd;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  
+  .wd-signin-form {
+    max-width: 400px;
+  }
+  
+  .wd-signin-form h1 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+  }
+  
+  .wd-signin-form .form-control {
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  .wd-signin-form .btn-primary {
+    width: 100%;
+    padding: 8px;
+    background-color:  #dc3545;
+    border-color: #dc3545;
+    border-radius: 4px;
+  }
+  
+  .wd-signin-form .text-center {
+    color: #6c757d;
+  }
+  
+  .wd-signin-form .text-center a {
+    color: #0d6efd;
+    text-decoration: none;
+    display: block;
+    margin-top: 5px;
+  }
+  
+  /* 页面标题样式 */
+  h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: normal;
+  }

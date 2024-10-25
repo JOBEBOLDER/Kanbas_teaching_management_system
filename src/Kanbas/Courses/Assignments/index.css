@@ -1,0 +1,116 @@
+/* src/Kanbas/Courses/Assignments/index.css */
+.wd-assignments {
+    padding: 20px;
+    background-color: white;
+  }
+  
+  /* 搜索框样式 */
+  .search-box .form-control {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  
+  .search-box .form-control:focus {
+    box-shadow: none;
+    border-color: #dc3545;
+  }
+  
+  /* 按钮样式 */
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  
+  .btn-light {
+    background-color: white;
+    border-color: #dee2e6;
+  }
+  
+  /* 作业列表样式 */
+  .assignments-header {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+  }
+  
+  .assignment-item {
+    border: 1px solid #dee2e6;
+    border-top: none;
+    padding: 15px;
+  }
+  
+  .assignment-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  /* 作业标题样式 */
+  .assignment-title {
+    color: #dc3545;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .assignment-title:hover {
+    color: #c82333;
+    text-decoration: underline !important;
+  }
+  
+  .assignment-details {
+    color: #6c757d;
+    font-size: 0.875rem;
+  }
+  
+  /* 图标样式 */
+  .drag-handle {
+    cursor: move;
+    color: #6c757d;
+  }
+  
+  .btn-transparent {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  
+  .btn-transparent:hover {
+    color: #0d6efd;
+  }
+  
+  /* Badge 样式 */
+  .badge {
+    font-weight: normal;
+    padding: 0.5em 1em;
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .wd-assignments {
+      padding: 10px;
+    }
+  
+    .assignment-details {
+      flex-direction: column;
+    }
+  
+    .mx-2 {
+      display: none;
+    }
+  }
+  
+  /* 其他图标和状态样式 */
+  .text-success {
+    color: #198754;
+  }
+  
+  .text-secondary {
+    color: #6c757d;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
