@@ -1,8 +1,10 @@
 import { AiOutlineDashboard } from "react-icons/ai";
+import React from "react";  // 添加这行
 import { IoCalendarOutline } from "react-icons/io5";
 import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
 import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
+import "./styles.css"
 
 export default function KanbasNavigation() {
   const { pathname } = useLocation();

@@ -1,18 +1,44 @@
 /* src/Kanbas/Courses/index.css */
 .wd-courses {
-    background-color: white;
-  }
-  
-  .wd-courses h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0;
+  background-color: white;
+  margin-left: 85px;  /* 为左侧导航栏预留空间 */
+  padding: 0 20px;    /* 内容的内边距 */
+  width: calc(100% - 85px); /* 考虑导航栏宽度的内容区域宽度 */
+  min-height: 100vh;
+}
+
+.wd-courses .row {
+  display: flex;
+  width: 100%;
+  margin: 0;
+}
+
+.wd-courses .col-md-2 {
+  width: 200px;      /* 左侧课程导航宽度 */
+  min-width: 200px;
+  padding: 0;
+}
+
+.wd-courses .col-md-10 {
+  flex: 1;
+  padding: 0 20px;
+  min-width: 0;      /* 防止内容溢出 */
+}
+
+/* 响应式布局调整 */
+@media (max-width: 768px) {
+  .wd-courses {
+    margin-left: 0;  /* 在小屏幕上移除左边距 */
+    width: 100%;     /* 占满全宽 */
   }
   
   .wd-courses .row {
-    margin: 0;
+    flex-direction: column;
   }
   
   .wd-courses .col-md-2,
   .wd-courses .col-md-10 {
-    padding: 0;
+    width: 100%;
+    padding: 10px;
   }
+}

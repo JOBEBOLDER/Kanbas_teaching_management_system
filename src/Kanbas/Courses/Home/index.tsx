@@ -1,6 +1,7 @@
 // src/Kanbas/Courses/Home/index.tsx
 import { useParams } from "react-router";
 import { courses } from "../../Database";
+import  "./index.css";
 
 // 定义Course接口
 interface Course {
@@ -16,9 +17,8 @@ interface Course {
 
 // 定义组件Props接口
 interface HomeProps {
-  course?: Course;
+  course: any;  // 根据需要定义更具体的类型
 }
-
 export default function Home({ course: propsCourse }: HomeProps) {
   const { cid } = useParams();
   // 明确指定courses的类型

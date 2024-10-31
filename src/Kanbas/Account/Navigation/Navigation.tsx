@@ -1,31 +1,25 @@
-// src/Kanbas/Account/Navigation/index.tsx
+// src/Kanbas/Account/Navigation/Navigation.tsx
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./index.css";
 
 export default function AccountNavigation() {
-  // 获取当前路径以设置活动状态
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  // 根据登录状态决定显示哪些链接
+  const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
   const { pathname } = useLocation();
 
   return (
-    <div className="wd-account-navigation">
-      <Link 
-        to="/Kanbas/Account/Signin"
-        className={`${pathname.includes("Signin") ? "active" : ""}`}
-      >
-        Signin
-      </Link>
-      <Link 
-        to="/Kanbas/Account/Signup"
-        className={`${pathname.includes("Signup") ? "active" : ""}`}
-      >
-        Signup
-      </Link>
-      <Link 
-        to="/Kanbas/Account/Profile"
-        className={`${pathname.includes("Profile") ? "active" : ""}`}
-      >
-        Profile
-      </Link>
+    <div className="list-group">
+      {links.map((link) => (
+        <Link
+          key={link}
+          to={`/Kanbas/Account/${link}`}
+          className={`list-group-item ${pathname.includes(link) ? "active" : ""}`}
+        >
+          {link}
+        </Link>
+      ))}
     </div>
   );
 }

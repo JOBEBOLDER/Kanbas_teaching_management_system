@@ -1,5 +1,6 @@
 // src/Kanbas/Courses/Navigation/index.tsx
 import { Link, useLocation, useParams } from "react-router-dom";
+import "./index.css"
 
 export default function CourseNavigation() {
   const { cid } = useParams();
