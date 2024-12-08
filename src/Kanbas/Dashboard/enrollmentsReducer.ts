@@ -1,18 +1,31 @@
-// src/Kanbas/Dashboard/enrollmentsReducer.ts
 import { createSlice } from "@reduxjs/toolkit";
-import { enrollments as initialEnrollments } from "../Database";
+import db from "../services/db";
+
+// 定义 Enrollment 接口
+interface Enrollment {
+  _id: string;
+  user: string;
+  course: string;
+}
+
+interface EnrollmentState {
+  enrollments: Enrollment[];
+  showAllCourses: boolean;
+}
+
+const initialState: EnrollmentState = {
+  enrollments: db.enrollments,
+  showAllCourses: false,
+};
 
 const enrollmentsSlice = createSlice({
   name: "enrollments",
-  initialState: {
-    enrollments: initialEnrollments,
-    showAllCourses: false,
-  },
+  initialState,
   reducers: {
     toggleShowAllCourses: (state) => {
       state.showAllCourses = !state.showAllCourses;
     },
-    enroll: (state, action) => {
+    enroll: (state, action: { payload: { userId: string; courseId: string } }) => {
       const { userId, courseId } = action.payload;
       state.enrollments.push({
         _id: new Date().getTime().toString(),
@@ -20,7 +33,7 @@ const enrollmentsSlice = createSlice({
         course: courseId,
       });
     },
-    unenroll: (state, action) => {
+    unenroll: (state, action: { payload: { userId: string; courseId: string } }) => {
       const { userId, courseId } = action.payload;
       state.enrollments = state.enrollments.filter(
         (enrollment) => !(enrollment.user === userId && enrollment.course === courseId)

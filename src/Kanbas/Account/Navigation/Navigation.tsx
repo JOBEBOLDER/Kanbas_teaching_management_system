@@ -19,6 +19,7 @@ export default function AccountNavigation() {
         >
           {link}
         </Link>
+        
       ))}
     </div>
   );

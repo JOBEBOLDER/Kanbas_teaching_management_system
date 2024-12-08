@@ -1,9 +1,7 @@
-// src/Kanbas/Courses/Assignments/Editor/index.tsx
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { updateAssignment, addAssignment } from "../reducer";
 import { FaCheckCircle } from "react-icons/fa";
+import * as client from "../client";
 
 interface Assignment {
   _id: string;
@@ -20,46 +18,48 @@ interface AssignmentEditorProps {
   isFaculty: boolean;
 }
 
-export default function AssignmentEditor({ isFaculty }: AssignmentEditorProps) {
-  const { cid, aid } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const assignments = useSelector((state: any) => 
-    state.assignmentsReducer.assignments || []
-  );
-
-  const [assignment, setAssignment] = useState<Assignment>({
-    _id: "",
-    title: "New Assignment",
-    description: "",
-    points: 100,
-    dueDate: new Date().toISOString().slice(0, 16),
-    availableFromDate: new Date().toISOString().slice(0, 16),
-    availableUntilDate: new Date().toISOString().slice(0, 16),
-    course: cid || ""
-  });
-
-  useEffect(() => {
-    if (aid) {
-      const currentAssignment = assignments.find(
-        (a: Assignment) => a._id === aid
-      );
-      if (currentAssignment) {
-        setAssignment(currentAssignment);
+  export default function AssignmentEditor({ isFaculty }: AssignmentEditorProps) {
+    const { cid, aid } = useParams();
+    const navigate = useNavigate();
+  
+    const [assignment, setAssignment] = useState<Assignment>({
+      _id: "",
+      title: "New Assignment",
+      description: "",
+      points: 100,
+      dueDate: new Date().toISOString().slice(0, 16),
+      availableFromDate: new Date().toISOString().slice(0, 16),
+      availableUntilDate: new Date().toISOString().slice(0, 16),
+      course: cid || ""
+    });
+  
+    const fetchAssignment = async () => {
+      if (aid && aid !== "new") {
+        try {
+          const response = await client.findAssignmentById(aid);
+          setAssignment(response);
+        } catch (error) {
+          console.error("Error fetching assignment:", error);
+        }
       }
-    }
-  }, [aid, assignments]);
+    };
+  
+    useEffect(() => {
+      fetchAssignment();
+    }, [aid]);
 
-  const handleSave = () => {
-    if (aid) {
-      // 更新现有作业
-      dispatch(updateAssignment(assignment));
-    } else {
-      // 创建新作业
-      dispatch(addAssignment(assignment));
-    }
-    navigate(`/Kanbas/Courses/${cid}/Assignments`);
-  };
+    const handleSave = async () => {
+      try {
+        if (aid && aid !== "new") {
+          await client.updateAssignment(aid, assignment);
+        } else {
+          await client.createAssignment(assignment);
+        }
+        navigate(`/Kanbas/Courses/${cid}/Assignments`);
+      } catch (error) {
+        console.error("Error saving assignment:", error);
+      }
+    };
 
   const handleCancel = () => {
     navigate(`/Kanbas/Courses/${cid}/Assignments`);

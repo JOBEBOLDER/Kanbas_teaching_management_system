@@ -8,6 +8,7 @@ import AccountNavigation from "./Navigation/Navigation";
 import './styles.css';
 import './Navigation/index.css';
 import './Signin/index.css';
+import React from "react";
 
 export default function Account() {
   // 获取当前用户状态

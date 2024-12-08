@@ -1,7 +1,5 @@
-// src/Kanbas/Courses/Assignments/index.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import {
   FaEllipsisV,
   FaCheckCircle,
@@ -9,7 +7,7 @@ import {
   FaEdit,
   FaTrash
 } from "react-icons/fa";
-import { addAssignment, deleteAssignment } from "./reducer";
+import * as client from "./client";
 import "./index.css";
 
 // 定义 Assignment 接口
@@ -44,18 +42,27 @@ interface DeleteConfirmState {
 
 export default function Assignments({ isFaculty }: AssignmentsProps) {
   const { cid } = useParams();
-  const dispatch = useDispatch();
-  const assignments = useSelector((state: AssignmentsState) => 
-    state.assignmentsReducer.assignments || []
-  );
+  const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 删除确认状态
   const [deleteConfirm, setDeleteConfirm] = useState<DeleteConfirmState>({
     show: false,
     assignmentId: "",
     assignmentTitle: ""
   });
+
+  const fetchAssignments = async () => {
+    try {
+      const response = await client.findAllAssignments();
+      setAssignments(response);
+    } catch (error) {
+      console.error("Error fetching assignments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
 
   const courseAssignments = assignments
     .filter((assignment: Assignment) => assignment.course === cid)
@@ -63,19 +70,25 @@ export default function Assignments({ isFaculty }: AssignmentsProps) {
       assignment.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-  const handleAddAssignment = () => {
-    const newAssignment: Omit<Assignment, '_id'> = {
-      title: "New Assignment",
-      course: cid || "",
-      description: "New Assignment Description",
-      points: 100,
-      dueDate: new Date().toISOString(),
-      published: false
+    const handleAddAssignment = async () => {
+      try {
+        const newAssignment = {
+          title: "New Assignment",
+          course: cid || "",
+          description: "New Assignment Description",
+          points: 100,
+          dueDate: new Date().toISOString(),
+          published: false
+        };
+        await client.createAssignment(newAssignment);
+        await fetchAssignments();
+      } catch (error) {
+        console.error("Error adding assignment:", error);
+      }
     };
-    dispatch(addAssignment(newAssignment));
-  };
 
-  // 处理删除点击
+  
+
   const handleDeleteClick = (assignment: Assignment) => {
     setDeleteConfirm({
       show: true,
@@ -84,14 +97,18 @@ export default function Assignments({ isFaculty }: AssignmentsProps) {
     });
   };
 
-  // 处理确认删除
-  const handleDeleteConfirm = () => {
-    dispatch(deleteAssignment(deleteConfirm.assignmentId));
-    setDeleteConfirm({
-      show: false,
-      assignmentId: "",
-      assignmentTitle: ""
-    });
+  const handleDeleteConfirm = async () => {
+    try {
+      await client.deleteAssignment(deleteConfirm.assignmentId);
+      await fetchAssignments();
+      setDeleteConfirm({
+        show: false,
+        assignmentId: "",
+        assignmentTitle: ""
+      });
+    } catch (error) {
+      console.error("Error deleting assignment:", error);
+    }
   };
 
   // 处理取消删除

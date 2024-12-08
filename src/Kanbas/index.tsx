@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
 import store from "./store";
 import KanbasNavigation from "./Navigation";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
 import Account from "./Account";
 import ProtectedRoute from "./Account/ProtectedRoute";
-import * as db from "./Database";
-import { Course } from "./types";
+import { Course } from "./types.js";
+import * as courseClient from "./Courses/client";
+import * as userClient from "./Account/client";
+import './styles.css'
 
-// 定义课程状态接口
 interface CourseState {
   _id: string;
   name: string;
@@ -22,10 +24,12 @@ interface CourseState {
 }
 
 export default function Kanbas() {
-  // 课程列表状态
-  const [courses, setCourses] = useState<Course[]>(db.courses);
+  // Initialize courses as empty array since we'll fetch from server
+  const [courses, setCourses] = useState<any[]>([]);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   
-  // 当前编辑的课程状态
+
+  
   const [course, setCourse] = useState<CourseState>({
     _id: "",
     name: "New Course",
@@ -36,35 +40,42 @@ export default function Kanbas() {
     description: "New Description"
   });
 
-  // 添加新课程
-  const addNewCourse = () => {
-    const newCourse = {
-      ...course,
-      _id: new Date().getTime().toString()
-    };
-    setCourses([...courses, newCourse]);
-    resetCourseForm();
+  // Fetch courses when component mounts or currentUser changes
+  const fetchCourses = async () => {
+    try {
+      const courses = await userClient.findMyCourses();
+      setCourses(courses);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  // 删除课程
-  const deleteCourse = (courseId: string) => {
-    setCourses(courses.filter(c => c._id !== courseId));
+  useEffect(() => {
+    fetchCourses();
+  }, [currentUser]);
+
+  // Add new course
+  const addNewCourse = async () => {
+    const newCourse = await userClient.createCourse(course);
+    setCourses([ ...courses, newCourse ]);
   };
 
-  // 更新课程
-  const updateCourse = () => {
-    setCourses(
-      courses.map(c => {
-        if (c._id === course._id) {
-          return course;
-        }
-        return c;
-      })
-    );
-    resetCourseForm();
+
+  const deleteCourse = async (courseId: string) => {
+    const status = await courseClient.deleteCourse(courseId);
+    setCourses(courses.filter((course) => course._id !== courseId));
   };
 
-  // 重置课程表单
+
+  const updateCourse = async () => {
+    await courseClient.updateCourse(course);
+    setCourses(courses.map((c) => {
+        if (c._id === course._id) { return course; }
+        else { return c; }
+    })
+  );};
+
+
   const resetCourseForm = () => {
     setCourse({
       _id: "",
@@ -83,19 +94,8 @@ export default function Kanbas() {
         <KanbasNavigation />
         <div className="flex-grow-1">
           <Routes>
-            {/* Dashboard Route */}
-            <Route 
-              path="/" 
-              element={<Navigate to="Dashboard" />} 
-            />
-
-            {/* Account Routes */}
-            <Route 
-              path="Account/*" 
-              element={<Account />} 
-            />
-
-            {/* Protected Dashboard Route */}
+            <Route path="/" element={<Navigate to="Dashboard" />} />
+            <Route path="Account/*" element={<Account />} />
             <Route 
               path="Dashboard" 
               element={
@@ -111,46 +111,20 @@ export default function Kanbas() {
                 </ProtectedRoute>
               } 
             />
-
-            {/* Protected Courses Route */}
             <Route 
               path="Courses/:cid/*" 
               element={
                 <ProtectedRoute>
-                  <Courses 
-                    courses={courses}
-                    modules={db.modules}
-                    assignments={db.assignments}
-                  />
+                  <Courses courses={courses} />
                 </ProtectedRoute>
               } 
             />
-
-            {/* Other Routes */}
-            <Route 
-              path="Calendar" 
-              element={<h1>Calendar</h1>} 
-            />
-            <Route 
-              path="Inbox" 
-              element={<h1>Inbox</h1>} 
-            />
-            <Route 
-              path="History" 
-              element={<h1>History</h1>} 
-            />
-            <Route 
-              path="Studio" 
-              element={<h1>Studio</h1>} 
-            />
-            <Route 
-              path="Commons" 
-              element={<h1>Commons</h1>} 
-            />
-            <Route 
-              path="Help" 
-              element={<h1>Help</h1>} 
-            />
+            <Route path="Calendar" element={<h1>Calendar</h1>} />
+            <Route path="Inbox" element={<h1>Inbox</h1>} />
+            <Route path="History" element={<h1>History</h1>} />
+            <Route path="Studio" element={<h1>Studio</h1>} />
+            <Route path="Commons" element={<h1>Commons</h1>} />
+            <Route path="Help" element={<h1>Help</h1>} />
           </Routes>
         </div>
       </div>

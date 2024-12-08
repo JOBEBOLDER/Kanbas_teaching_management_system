@@ -1,9 +1,22 @@
 // src/Kanbas/Courses/Assignments/reducer.ts
 import { createSlice } from "@reduxjs/toolkit";
-import { assignments } from "../../Database";
+import db from "../../services/db";
 
-const initialState = {
-  assignments: assignments,
+// 定义 Assignment 接口
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+}
+
+// 定义 state 接口
+interface AssignmentState {
+  assignments: Assignment[];
+}
+
+// 初始状态，使用 db.assignments
+const initialState: AssignmentState = {
+  assignments: db.assignments,
 };
 
 const assignmentsSlice = createSlice({
@@ -18,11 +31,11 @@ const assignmentsSlice = createSlice({
     },
     deleteAssignment: (state, action) => {
       state.assignments = state.assignments.filter(
-        (assignment) => assignment._id !== action.payload
+        (assignment: Assignment) => assignment._id !== action.payload
       );
     },
     updateAssignment: (state, action) => {
-      state.assignments = state.assignments.map((assignment) =>
+      state.assignments = state.assignments.map((assignment: Assignment) =>
         assignment._id === action.payload._id ? action.payload : assignment
       );
     },

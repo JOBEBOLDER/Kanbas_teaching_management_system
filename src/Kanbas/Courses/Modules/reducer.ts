@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { modules } from "../../Database";
+import db from "../../services/db";
 import { Module } from "../../types";
 
 interface ModulesState {
@@ -13,7 +13,7 @@ interface AddModulePayload {
 }
 
 const initialState: ModulesState = {
-  modules: modules,
+  modules: db.modules,
 };
 
 const modulesSlice = createSlice({
@@ -24,7 +24,7 @@ const modulesSlice = createSlice({
       const newModule: Module = {
         _id: new Date().getTime().toString(),
         name: payload.name,
-        description: payload.description || "New Module",  // 提供默认的 description
+        description: payload.description || "New Module",
         course: payload.course,
         lessons: [],
       };

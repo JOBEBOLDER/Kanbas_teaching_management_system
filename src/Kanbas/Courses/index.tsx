@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { FaAlignJustify } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import CourseNavigation from "./Navigation";
 import Home from "./Home";
 import Modules from "./Modules";
@@ -9,16 +10,16 @@ import AssignmentEditor from "./Assignments/Editor/Editor";
 import Grades from "./Grades";
 import PeopleTable from "./People/Table";
 import "./index.css";
-import { Course, Module, Assignment } from "../types";
-
+import { Course } from "../types";
+import React from "react";
 
 interface CoursesProps {
   courses: Course[];
-  modules: Module[];
-  assignments: Assignment[];
 }
 
-export default function Courses({ courses, modules = [], assignments = [] }: CoursesProps) {
+const Courses = ({ courses }: CoursesProps) => {
+  const [modules, setModules] = useState<any[]>([]);
+  const [assignments, setAssignments] = useState<any[]>([]);
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -47,19 +48,30 @@ export default function Courses({ courses, modules = [], assignments = [] }: Cou
               <CourseNavigation />
             </div>
             <div className="col-md-10">
-            <Routes>
-            <Route path="/" element={<Navigate to="Home" />} />
-            <Route path="Home" element={<Home course={course} />} />
-            <Route path="Modules" element={<Modules isFaculty={isFaculty} />} />
-            <Route path="Assignments" element={<Assignments isFaculty={isFaculty} />} />
-            <Route path="Assignments/:aid" element={<AssignmentEditor isFaculty={isFaculty} />} />
-            <Route path="Grades" element={<Grades />} />
-            <Route path="People" element={<PeopleTable />} />
-          </Routes>
+              <Routes>
+                <Route path="/" element={<Navigate to="Home" />} />
+                <Route path="Home" element={<Home course={course} />} />
+                <Route 
+                  path="Modules" 
+                  element={<Modules isFaculty={isFaculty} />} 
+                />
+                <Route 
+                  path="Assignments" 
+                  element={<Assignments isFaculty={isFaculty} />} 
+                />
+                <Route 
+                  path="Assignments/:aid" 
+                  element={<AssignmentEditor isFaculty={isFaculty} />} 
+                />
+                <Route path="Grades" element={<Grades />} />
+                <Route path="People" element={<PeopleTable />} />
+              </Routes>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Courses;

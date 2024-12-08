@@ -42,9 +42,20 @@ export interface Lesson {
     lastName: string;
     email: string;
     dob: string;
-    role: "FACULTY" | "STUDENT";
+    role: "FACULTY" | "STUDENT" | "TA" | "ADMIN"; // 添加新的角色
     loginId: string;
     section: string;
     lastActivity: string;
     totalActivity: string;
+  }
+  export interface Enrollment {
+    _id: string;
+    user: string;
+    course: string;
+  }
+
+  export interface CoursesProps {
+    courses: Course[];
+    modules: Module[];
+    assignments: Assignment[];
   }

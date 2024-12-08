@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "config-overrides.js", "kanbas-node-server-app/users/Users"  ]
 }
