@@ -1,265 +1,178 @@
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import {
-  FaEllipsisV,
-  FaCheckCircle,
-  FaGripVertical,
-  FaEdit,
-  FaTrash
-} from "react-icons/fa";
-import * as client from "./client";
+import React, { useEffect, useState } from "react";
+import Modal from "react-bootstrap/Modal";
 import "./index.css";
+import {
+  FaCheckCircle,
+  FaEllipsisV,
+  FaPlusCircle,
+  FaPlus,
+  FaClipboard,
+} from "react-icons/fa";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import db from "../../Database";
+import {
+  addAssignment,
+  deleteAssignment,
+  updateAssignment,
+  setAssignment,
+  setAssignments,
+} from "./assignmentsReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { KanbasState } from "../../store";
+import * as client from "./client";
 
-// 定义 Assignment 接口
-interface Assignment {
-  _id: string;
-  title: string;
-  course: string;
-  description?: string;
-  points?: number;
-  dueDate?: string;
-  availableFromDate?: string;
-  availableUntilDate?: string;
-  published?: boolean;
-}
+function Assignments() {
+  const { courseId } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  //const assignmentList = db.assignments.filter(
+  //(assignment) => assignment.course === courseId);
 
-interface AssignmentsProps {
-  isFaculty: boolean;
-}
+  const assignmentList = useSelector(
+    (state: KanbasState) => state.assignmentsReducer.assignments,
+  ).filter((assignment) => assignment.course === courseId);
 
-// 定义 AssignmentsState 接口
-interface AssignmentsState {
-  assignmentsReducer: {
-    assignments: Assignment[];
+  const assignment = useSelector(
+    (state: KanbasState) => state.assignmentsReducer.assignment,
+  );
+
+  const newAssignmentPage = () => {
+    dispatch(
+      setAssignment({
+        title: "New Assignment",
+        start: "2024-01-01",
+        due: "2024-01-31",
+        points: "100",
+      }),
+    );
+    navigate(`/Kanbas/Courses/${courseId}/Assignments/New`);
+    console.log("Navigate to new assignment page");
   };
-}
 
-interface DeleteConfirmState {
-  show: boolean;
-  assignmentId: string;
-  assignmentTitle: string;
-}
+  // Use a state to store the correct assignment id to be deleted.
+  // Otherwise, the deletion dialog Modal will use the wrong assignment id
+  // (which is always the last assignment id in the assignment list executed).
+  const [assignmentIdToDelete, setAssignmentIdToDelete] = useState(null);
+  const [dialogShow, setDialogShow] = useState(false);
 
-export default function Assignments({ isFaculty }: AssignmentsProps) {
-  const { cid } = useParams();
-  const [assignments, setAssignments] = useState<Assignment[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const handleDialogClose = () => setDialogShow(false);
 
-  const [deleteConfirm, setDeleteConfirm] = useState<DeleteConfirmState>({
-    show: false,
-    assignmentId: "",
-    assignmentTitle: ""
-  });
+  const handleDeleteClick = (assignmentId: any) => {
+    dispatch(setAssignment({ _id: assignmentId }));
+    console.log(assignment);
+    setAssignmentIdToDelete(assignmentId);
+    setDialogShow(true);
+  };
 
-  const fetchAssignments = async () => {
-    try {
-      const response = await client.findAllAssignments();
-      setAssignments(response);
-    } catch (error) {
-      console.error("Error fetching assignments:", error);
-    }
+  const handleDeleteConfirmation = () => {
+    client.deleteAssignment(assignmentIdToDelete).then((status) => {
+      dispatch(deleteAssignment(assignmentIdToDelete));
+      console.log(assignmentIdToDelete);
+      handleDialogClose();
+    });
   };
 
   useEffect(() => {
-    fetchAssignments();
-  }, []);
-
-  const courseAssignments = assignments
-    .filter((assignment: Assignment) => assignment.course === cid)
-    .filter((assignment: Assignment) => 
-      assignment.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const handleAddAssignment = async () => {
-      try {
-        const newAssignment = {
-          title: "New Assignment",
-          course: cid || "",
-          description: "New Assignment Description",
-          points: 100,
-          dueDate: new Date().toISOString(),
-          published: false
-        };
-        await client.createAssignment(newAssignment);
-        await fetchAssignments();
-      } catch (error) {
-        console.error("Error adding assignment:", error);
-      }
-    };
-
-  
-
-  const handleDeleteClick = (assignment: Assignment) => {
-    setDeleteConfirm({
-      show: true,
-      assignmentId: assignment._id,
-      assignmentTitle: assignment.title
-    });
-  };
-
-  const handleDeleteConfirm = async () => {
-    try {
-      await client.deleteAssignment(deleteConfirm.assignmentId);
-      await fetchAssignments();
-      setDeleteConfirm({
-        show: false,
-        assignmentId: "",
-        assignmentTitle: ""
-      });
-    } catch (error) {
-      console.error("Error deleting assignment:", error);
-    }
-  };
-
-  // 处理取消删除
-  const handleDeleteCancel = () => {
-    setDeleteConfirm({
-      show: false,
-      assignmentId: "",
-      assignmentTitle: ""
-    });
-  };
+    client
+      .findAssignmentsForCourse(courseId)
+      .then((assignments) => dispatch(setAssignments(assignments)));
+  }, [courseId]);
 
   return (
-    <div className="wd-assignments">
-      {/* 顶部搜索和按钮 */}
-      <div className="assignment-header d-flex justify-content-between align-items-center mb-3">
-        <div className="d-flex flex-grow-1 me-3">
-          <div className="search-box position-relative flex-grow-1 me-2">
-            <input
-              type="text"
-              className="form-control ps-4"
-              placeholder="Search for Assignment"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <i className="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
-          </div>
-          {isFaculty && (
-            <button className="btn btn-light border">
-              <i className="fas fa-plus me-1"></i>Group
-            </button>
-          )}
+    <div className="ms-3 col-lg-10">
+      <div className="d-flex justify-content-between">
+        <div className="me-2">
+          <input
+            type="text"
+            className="form-control ms-1"
+            placeholder="Search for Assignment"
+            id="search-assignment"
+          />
         </div>
-        {isFaculty && (
-          <button className="btn btn-danger" onClick={handleAddAssignment}>
-            <i className="fas fa-plus me-1"></i>Assignment
+        <div className="float-end">
+          <button className="btn btn-secondary me-1 button-color">
+            <FaPlus /> Group
           </button>
-        )}
-      </div>
-
-      {/* 作业列表 */}
-      <div className="list-group shadow-sm">
-        {/* 作业标题栏 */}
-        <div className="list-group-item assignments-header">
-          <div className="d-flex justify-content-between align-items-center py-1">
-            <div className="d-flex align-items-center">
-              {isFaculty && <FaGripVertical className="me-2 text-secondary" />}
-              <span className="fw-bold">ASSIGNMENTS</span>
-            </div>
-            <div>
-              <span className="badge rounded-pill bg-light text-dark border me-2">
-                40% of Total
-              </span>
-              {isFaculty && (
-                <>
-                  <button className="btn btn-transparent p-0 me-2">
-                    <i className="fas fa-plus text-secondary"></i>
-                  </button>
-                  <button className="btn btn-transparent p-0">
-                    <FaEllipsisV className="text-secondary" />
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
+          <button className="btn btn-danger me-1" onClick={newAssignmentPage}>
+            <FaPlus /> Assignment
+          </button>
+          <button className="btn btn-secondary me-1 button-color button-size">
+            <FaEllipsisV />
+          </button>
         </div>
-
-        {/* 作业列表项 */}
-        {courseAssignments.map((assignment: Assignment, index: number) => (
-          <div key={assignment._id} className="list-group-item assignment-item">
-            <div className="d-flex align-items-center mb-2">
-              {isFaculty && (
-                <div className="drag-handle me-2">
-                  <FaGripVertical className="text-secondary" />
-                </div>
-              )}
-              <div className="assignment-icon me-3">
-                <FaEdit className="text-success" />
-              </div>
-              <div className="flex-grow-1">
-                <Link
-                  to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
-                  className="assignment-title text-danger fw-bold text-decoration-none"
-                >
-                  {assignment.title}
-                </Link>
-                <div className="assignment-details text-secondary small">
-                  <span>Multiple Modules</span>
-                  <span className="mx-2">|</span>
-                  <span>Due: {assignment.dueDate ? 
-                    new Date(assignment.dueDate).toLocaleDateString() : 
-                    'No due date'}</span>
-                  <span className="mx-2">|</span>
-                  <span>{assignment.points || 0} pts</span>
-                </div>
-              </div>
-              <div className="assignment-status d-flex align-items-center">
-                <FaCheckCircle className="text-success me-2" />
-                {isFaculty && (
-                  <>
-                    <button 
-                      className="btn btn-transparent p-0 me-2"
-                      onClick={() => handleDeleteClick(assignment)}
+      </div>
+      <hr />
+      <ul className="list-group wd-modules">
+        <li className="list-group-item">
+          <div>
+            <FaEllipsisV className="me-2" /> ASSIGNMENTS
+            <span className="float-end">
+              <button className="circle">40% of Total</button>
+              <FaCheckCircle className="text-success" />
+              <FaPlusCircle className="ms-2" />
+              <FaEllipsisV className="ms-2" />
+            </span>
+          </div>
+          <ul className="list-group">
+            {assignmentList.map((assignment) => (
+              <li className="list-group-item">
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <FaEllipsisV className="me-2" />
+                    <FaClipboard className="me-4" style={{ color: "green" }} />
+                    <Link
+                      to={`/Kanbas/Courses/${courseId}/Assignments/${assignment.id}`}
+                      className="assignment-setup"
+                      onClick={() => dispatch(setAssignment(assignment))}
                     >
-                      <FaTrash className="text-danger" />
+                      <b>{assignment.title}</b> <br />
+                      <p className="due-info">
+                        Week starting on {assignment.start} | <b>Due</b>{" "}
+                        {assignment.due} at 11:59pm | {assignment.points}pts
+                      </p>
+                    </Link>
+                  </div>
+                  <div className="float-end">
+                    <button
+                      className="btn btn-danger"
+                      style={{ height: "30px", fontSize: "14px" }}
+                      onClick={() => handleDeleteClick(assignment._id)}
+                    >
+                      Delete
                     </button>
-                    <FaEllipsisV className="text-secondary" />
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* 删除确认对话框 */}
-      {deleteConfirm.show && (
-        <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Confirm Delete</h5>
-                <button 
-                  type="button" 
-                  className="btn-close" 
-                  onClick={handleDeleteCancel}
-                ></button>
-              </div>
-              <div className="modal-body">
-                Are you sure you want to delete the assignment "{deleteConfirm.assignmentTitle}"?
-                This action cannot be undone.
-              </div>
-              <div className="modal-footer">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary" 
-                  onClick={handleDeleteCancel}
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="button" 
-                  className="btn btn-danger" 
-                  onClick={handleDeleteConfirm}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                    <FaCheckCircle className="ms-2 text-success" />
+                    <FaEllipsisV className="ms-2" />
+                  </div>
+                  <Modal show={dialogShow} onHide={handleDialogClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Delete Assignment?</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Do you want to delete this assignment?
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <button
+                        className="btn btn-danger"
+                        onClick={handleDeleteConfirmation}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={handleDialogClose}
+                      >
+                        Cancel
+                      </button>
+                    </Modal.Footer>
+                  </Modal>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </li>
+      </ul>
     </div>
   );
 }
+
+export default Assignments;

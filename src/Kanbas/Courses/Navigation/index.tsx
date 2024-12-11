@@ -1,36 +1,45 @@
-// src/Kanbas/Courses/Navigation/index.tsx
-import { Link, useLocation, useParams } from "react-router-dom";
-import "./index.css"
+import { Link, useLocation } from "react-router-dom";
+import "./index.css";
 
-export default function CourseNavigation() {
-  const { cid } = useParams();
+function CourseNavigation() {
+  const links = [
+    "Home",
+    "Modules",
+    "Piazza",
+    "Zoom Meetings",
+    "Assignments",
+    "Quizzes",
+    "Grades",
+    "People",
+    "Panopto Video",
+    "Discussions",
+    "Announcements",
+    "Pages",
+    "Files",
+    "Rubrics",
+    "Outcomes",
+    "Collaborations",
+    "Syllabus",
+    "Settings",
+  ];
   const { pathname } = useLocation();
   
-  const links = [
-    { label: "Home", path: "Home" },
-    { label: "Modules", path: "Modules" },
-    { label: "Assignments", path: "Assignments" },
-    { label: "Grades", path: "Grades" },
-    { label: "People", path: "People" },  // 确保有People链接
-    { label: "Announcements", path: "Announcements" },
-    { label: "Analytics", path: "Analytics" }
-  ];
-
   return (
-    <div className="wd-course-navigation">
-      <div className="list-group">
-        {links.map((link) => (
-          <Link
-            key={link.path}
-            to={`/Kanbas/Courses/${cid}/${link.path}`}
-            className={`list-group-item ${
-              pathname.includes(link.path) ? "active" : ""
-            }`}
+    <div className="d-none d-md-block">
+      <ul className="wd-navigation">
+        {links.map((link, index) => (
+          <li
+            key={index}
+            className={
+              pathname.includes(link.replace(" ", "%20")) ? "wd-active" : ""
+            }
           >
-            {link.label}
-          </Link>
+            <Link to={link}>{link}</Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
+
+export default CourseNavigation;

@@ -1,23 +1,22 @@
-import React from "react";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import logo from './logo.svg';
-import { Route, Routes, Navigate, HashRouter } from "react-router-dom";  // 移除 HashRouter
-import Labs from "./Labs";
+import Labs from './Labs';
+import HelloWorld from './Labs/a3/HelloWorld';
 import Kanbas from "./Kanbas";
-import store from "./Kanbas/store"
-import { Provider } from "react-redux";
+import { HashRouter } from 'react-router-dom';
+import { Routes, Route, Navigate } from "react-router";
 
-export default function App() {
+function App() {
   return (
-    <Provider store={store}>
-    <div>
-      <Routes>
-        {/* default navigate to Labs*/}
-        <Route path="/" element={<Navigate to="Labs" />} />
-        <Route path="/Labs/*" element={<Labs />} />
-        <Route path="/Kanbas/*" element={<Kanbas />} />
-      </Routes>
-    </div>
-    </Provider>
+    <HashRouter>
+      <div>
+        <Routes>
+          <Route path="/" element={<Navigate to="/Labs/a3" />} />
+          <Route path="/Labs/*" element={<Labs />} />
+          <Route path="/Kanbas/*" element={<Kanbas />} />
+          <Route path="/hello" element={<HelloWorld />} />
+        </Routes>
+      </div>
+    </HashRouter>
   );
 }
+
+export default App;

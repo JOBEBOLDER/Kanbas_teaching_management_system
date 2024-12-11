@@ -1,58 +1,49 @@
-/* src/Kanbas/Courses/Modules/index.css */
-
-.module-controls {
-  gap: 4px;
+.wd-modules,
+.wd-modules * {
+    border-radius: 0% !important; 
+    border: none;
+    margin: 0px;
+    padding: 0px;
 }
 
-.module-controls .btn-link {
-  color: #666;
-  text-decoration: none;
-  padding: 4px !important;
-  line-height: 1;
-  min-width: 28px;
-  min-height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
+.wd-modules {
+    margin: 5px;
 }
 
-.module-controls .btn-link:hover {
-  background-color: #f8f9fa;
+.wd-modules > li {
+    background-color: lightgray;
+    border: 1px solid gray !important;
+    border-left: none !important;
+    padding: 0px;
 }
 
-.module-controls svg {
-  font-size: 14px;
+.wd-modules > li > div {
+    padding: 6px;
+    border-left: 1px solid gray !important;
 }
 
-.text-primary {
-  color: #0d6efd !important;
+.wd-modules > li > ul > li {
+    padding: 5px;
+    border-top: 1px solid gray !important;
+    border-left: 2px solid green;
 }
 
-.text-danger {
-  color: #dc3545 !important;
+.wd-modules > li {
+    margin-bottom: 20px;
 }
 
-.text-success {
-  color: #198754 !important;
+.button-color {
+    color: black !important;
+    background-color: lightgray !important;
+    border-color: black !important;
 }
 
-/* 为了保持图标大小一致 */
-.module-controls .fa-check-circle,
-.module-controls .fa-plus,
-.module-controls .fa-pencil,
-.module-controls .fa-trash,
-.module-controls .bs-three-dots {
-  font-size: 14px;
-  width: 14px;
-  height: 14px;
+.dropdown {
+    border-radius: 5px;
 }
 
-/* 模块标题样式 */
-.module-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  background-color: #f8f9fa;
+.plus-icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
