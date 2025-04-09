@@ -9,7 +9,7 @@ Professor:Jose Annunziato
 This project is a full-stack web application that covers HTML, CSS, JavaScript, React.js, Redux, Node.js, and MongoDB. It implements best practices for modern web development and serves as a learning resource for full-stack development.
 
 ## 🚀 Getting Started
-** Project already remotely deployed on: https://kanbas-react-web-app-jieyao.netlify.app **
+### **Project already remotely deployed on**: https://kanbas-react-web-app-jieyao.netlify.app
 This project was bootstrapped with [Create React App](https://create-react-app.dev/).
 
 ### Prerequisites
