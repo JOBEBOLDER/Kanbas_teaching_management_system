@@ -4,6 +4,8 @@ A full-stack React web application that demonstrates modern web development prac
 Northeastern University Khoury 5610
 Professor:Jose Annunziato
 
+backend server repo link :https://github.com/JOBEBOLDER/kanbas-node-server-app
+
 ## 📋 Overview
 
 This project is a full-stack web application that covers HTML, CSS, JavaScript, React.js, Redux, Node.js, and MongoDB. It implements best practices for modern web development and serves as a learning resource for full-stack development.
