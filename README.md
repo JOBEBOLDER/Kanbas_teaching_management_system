@@ -112,8 +112,6 @@ This repository includes both assignments and a full-stack project showcasing my
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
-
-Created by [Your Name] - Feel free to contribute!
 <img width="1202" alt="image" src="https://github.com/user-attachments/assets/222c1455-4da9-4547-a0ed-862295a18dd1" />
 <img width="339" alt="image" src="https://github.com/user-attachments/assets/594b9053-92ed-4847-ba65-271e450354ce" />
 
