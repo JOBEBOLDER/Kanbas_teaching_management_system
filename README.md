@@ -1,46 +1,119 @@
-# Getting Started with Create React App
+# Kanbas React Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack React web application that demonstrates modern web development practices using React.js, Redux, Node.js, and MongoDB.
 
-## Available Scripts
+## 📋 Overview
+
+This project is a full-stack web application that covers HTML, CSS, JavaScript, React.js, Redux, Node.js, and MongoDB. It implements best practices for modern web development and serves as a learning resource for full-stack development.
+
+## 🚀 Getting Started
+
+This project was bootstrapped with [Create React App](https://create-react-app.dev/).
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+- MongoDB (for backend functionality)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/kanbas-react-web-app.git
+   cd kanbas-react-web-app
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+
+## 📜 Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the app in development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🧰 Project Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+kanbas-react-web-app/
+├── public/              # Static files
+├── src/                 # Source files
+│   ├── App.css          # Main application styles
+│   ├── App.tsx          # Main application component
+│   ├── index.css        # Global styles
+│   ├── index.tsx        # Application entry point
+│   ├── logo.svg         # App logo
+│   ├── react-app-env.d.ts   # Type declarations
+│   ├── reportWebVitals.ts   # Performance measuring
+│   └── setupTests.ts    # Test configuration
+├── .gitignore           # Git ignore file
+├── package-lock.json    # Dependency lock file
+├── package.json         # Project metadata and dependencies
+├── README.md            # Project documentation
+└── tsconfig.json        # TypeScript configuration
+```
 
-### `npm run eject`
+## 🛠️ Technologies Used
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This project uses a number of modern web technologies:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Frontend**:
+  - React.js
+  - TypeScript
+  - HTML5 & CSS3
+  - Redux (for state management)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Development Tools**:
+  - Create React App
+  - TypeScript
+  - ESLint
+  - Jest (for testing)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 📊 Project Stats
 
-## Learn More
+- **Languages**: HTML (39.9%), TypeScript (38.5%), CSS (21.6%)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📝 Notes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This repository includes both assignments and a full-stack project showcasing my progress in learning modern web development techniques. The code demonstrates best practices for React development and full-stack integration.
+
+## 🔮 Future Development
+
+- Integration with backend API
+- Enhanced state management with Redux
+- Additional features and UI improvements
+- MongoDB data persistence
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Created by [Your Name] - Feel free to contribute!
+<img width="1202" alt="image" src="https://github.com/user-attachments/assets/222c1455-4da9-4547-a0ed-862295a18dd1" />
+<img width="339" alt="image" src="https://github.com/user-attachments/assets/594b9053-92ed-4847-ba65-271e450354ce" />
+
