@@ -1,6 +1,8 @@
 # Kanbas React Web App
 
 A full-stack React web application that demonstrates modern web development practices using React.js, Redux, Node.js, and MongoDB.
+Northeastern University Khoury 5610
+Professor:Jose Annunziato
 
 ## 📋 Overview
 
