@@ -1,4 +1,4 @@
-# Kanbas React Web App
+# Kanbas teaching management system
 
 A full-stack React web application that demonstrates modern web development practices using React.js, Redux, Node.js, and MongoDB.
 Northeastern University Khoury 5610
