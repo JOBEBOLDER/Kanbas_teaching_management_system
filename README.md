@@ -117,7 +117,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 <img width="1202" alt="image" src="https://github.com/user-attachments/assets/222c1455-4da9-4547-a0ed-862295a18dd1" />
-<img width="1161" alt="image" src="https://github.com/user-attachments/assets/9738dd1b-7dc4-463b-aff0-6981c37b4b2d" />
 <img width="1165" alt="image" src="https://github.com/user-attachments/assets/ff42bbec-8dc5-4dd1-9313-f95d7fa2c02e" />
 <img width="2924" height="1666" alt="image" src="https://github.com/user-attachments/assets/a95b3f6d-4a68-477c-bd85-0b36876a8db4" />
 
