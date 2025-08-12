@@ -12,7 +12,7 @@ This project is a full-stack web application that covers HTML, CSS, JavaScript, 
 
 ## 🚀 Getting Started
 ### **Project already remotely deployed on**: https://kanbas-react-web-app-jieyao.netlify.app
-This project was bootstrapped with [Create React App](https://create-react-app.dev/).
+This project was bootstrapped with [Create React App](https://create-react-app.dev/)
 
 ### Prerequisites
 
